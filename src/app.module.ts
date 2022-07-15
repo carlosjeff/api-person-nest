@@ -1,9 +1,13 @@
+import { UserModule } from './modules/user.module';
 import { PersonModule } from './modules/person.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PersonModel } from './models/person.model';
+import { UserModel } from './models/user.model';
 
 @Module({
   imports: [
+    UserModule,
     PersonModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -12,7 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'Cjb@2015',
       database: 'person',
-      entities: ["dist/**/*.model.js"],
+      entities: [PersonModel,UserModel],
       synchronize: true,
     }),
   ]
