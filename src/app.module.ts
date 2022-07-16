@@ -1,3 +1,4 @@
+import { AuthModule } from './modules/auth.module';
 import { UserModule } from './modules/user.module';
 import { PersonModule } from './modules/person.module';
 import { Module } from '@nestjs/common';
@@ -7,6 +8,7 @@ import { UserModel } from './models/user.model';
 
 @Module({
   imports: [
+    AuthModule,
     UserModule,
     PersonModule,
     TypeOrmModule.forRoot({
@@ -16,7 +18,7 @@ import { UserModel } from './models/user.model';
       username: 'root',
       password: 'Cjb@2015',
       database: 'person',
-      entities: [PersonModel,UserModel],
+      entities: [PersonModel, UserModel],
       synchronize: true,
     }),
   ]

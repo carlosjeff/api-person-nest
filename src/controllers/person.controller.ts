@@ -1,9 +1,12 @@
 
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonModel } from '../models/person.model';
 import { Repository } from 'typeorm/repository/Repository';
 import { PersonSchema } from 'src/schemas/person.schema';
+import { JwtAuthGuard } from 'src/guard/jwt-auth.guard';
+import { Role } from 'src/decorators/role.decorator';
+import { RoleGuard } from 'src/guard/role.guard';
 
 @Controller('/person')
 export class PersonController {
@@ -28,6 +31,8 @@ export class PersonController {
         return person;
     }
 
+    @Role(['user'])
+    @UseGuards(JwtAuthGuard, RoleGuard)
     @Get()
     public async getAll(): Promise<PersonModel[]> {
 

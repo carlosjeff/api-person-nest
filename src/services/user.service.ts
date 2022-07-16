@@ -17,6 +17,10 @@ export class UserService {
         .then(() => this.model.save(user));
     }
 
+    public async getByEmail(email: string): Promise<UserModel> {
+        return this.model.findOne({ where: {email}})
+    }
+
     public async getOne(id: number): Promise<UserModel> {
 
         const user = await this.isExist(id);
